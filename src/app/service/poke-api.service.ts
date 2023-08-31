@@ -8,7 +8,6 @@ import { map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PokeApiService {
-
   private url: string = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100'
 
   constructor (
@@ -21,7 +20,7 @@ export class PokeApiService {
         tap(res => res),
         tap((res: any) => {
           res.results.map((resPokemons: any) => {
-            this.apiGetPokemons(resPokemons.url)
+            this.apiGetPokemon(resPokemons.url)
               .subscribe(
                 res => resPokemons.status = res
               )
@@ -30,7 +29,7 @@ export class PokeApiService {
       )
   }
 
-  public apiGetPokemons (url: string): Observable<any> {
+  public apiGetPokemon (url: string): Observable<any> {
     return this.http.get<any>(url).pipe(
       map(
         res => res
